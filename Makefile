@@ -1,2 +1,2 @@
-rngmake: rng.c main.c
-	gcc -o main main.c rng.c -lpthread
+rngmake: src/rng.c src/main.c
+	gcc -o main src/main.c src/rng.c -lpthread
