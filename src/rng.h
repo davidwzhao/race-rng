@@ -42,18 +42,15 @@ typedef struct rng_config_t_ {
 /* ----- function forward declarations ----- */
 
 /* 
- * The main rng function. The default function is a simple
- * Fibonacci-style PRNG: 
- * n = n + (a >> 32) + b
- * b = a
- * a = n
+ * The main rng function. The default function is a simple PRNG
+ * using bitshifts and bitwise AND, inspired by xorshift
  *
- * May be changed if you define your own function
- * with the same parameters
+ * The PRNG function be changed if you define your own function
+ * with the same parameters, and define which function to use
+ * in loop_f
  *
  * @param num a pointer to the random number to be modified
  * @param rng_params the parameters to use for this PRNG
- * @param thread_id a number identifying a thread, usually 0, 1, 2, etc.
  */
 void rng_f(unsigned long long *num, rng_params_t *rng_params);
 

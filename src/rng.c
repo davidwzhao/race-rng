@@ -9,9 +9,12 @@
 pthread_barrier_t barr;
 
 void rng_f(unsigned long long *num, rng_params_t *rng_params) {
-    *num += (rng_params->a >> 32) + rng_params->b;
-    rng_params->b = rng_params->a;
-    rng_params->a = *num;
+    *num ^= (*num << 11);
+    *num ^= (*num >> 8);
+    *num ^= rng_params->b ^ (rng_params->b >> 19) + (rng_params->a >> 26);
+
+    rng_params->b = (rng_params->a >> 4);
+    rng_params->a = (*num >> 3);
 }
 
 void *loop_f(void *a) {
