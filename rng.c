@@ -9,7 +9,7 @@
 pthread_barrier_t barr;
 
 void rng_f(unsigned long long *num, rng_params_t *rng_params) {
-    *num += rng_params->a + rng_params->b;
+    *num += (rng_params->a >> 32) + rng_params->b;
     rng_params->b = rng_params->a;
     rng_params->a = *num;
 }
@@ -67,16 +67,16 @@ unsigned long long rng_config(rng_config_t *config) {
 unsigned long long rng() {
     // make sure this has conf.num_threads number of elements
     rng_params_t rng_params[] = {
-        { .a = 12398,           .b = 18472621378        },
-        { .a = 198472138974,    .b = 234879             },
-        { .a = 19284397,        .b = 13628747327846     },
-        { .a = 938443,          .b = 5978247            }
+        { .a = 1959145553,          .b = 6983543408444742683    },
+        { .a = 1837103774,          .b = 1629451259722584379    },
+        { .a = 8411011023567752081, .b = 7948111962147686778    },
+        { .a = 3554592823790559842, .b = 5247505673804591734    }
     };
 
     rng_config_t conf = {
         .num_threads = 4,
-        .num_loops = 1000,
-        .init_random = 1943867283,
+        .num_loops = 100,
+        .init_random = 1,
         .rng_params = rng_params
     };
 
