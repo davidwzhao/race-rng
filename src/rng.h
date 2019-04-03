@@ -44,7 +44,7 @@ typedef struct rng_config_t_ {
 /* 
  * The main rng function. The default function is a simple
  * Fibonacci-style PRNG: 
- * n = n + a + b
+ * n = n + (a >> 32) + b
  * b = a
  * a = n
  *

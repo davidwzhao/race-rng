@@ -11,4 +11,4 @@ Here is the distribution of random numbers running `race-rng` with 4 threads ove
 
 ![alt text](./results.svg "Results for race-rng")
 
-
+*Note:* this is probably not cryptographically secure, and can be manipulated via thread scheduling. Therefore, don't use this in anything where cryptographic security is important.

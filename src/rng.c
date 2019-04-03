@@ -17,7 +17,7 @@ void rng_f(unsigned long long *num, rng_params_t *rng_params) {
 void *loop_f(void *a) {
     loop_f_args_t *args = a;
 
-    // all threads wait on barrier so the start at the same time
+    // all threads wait on barrier so they start at the same time
     pthread_barrier_wait(&barr);
 
     // main loop for the rng
