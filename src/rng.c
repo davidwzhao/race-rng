@@ -8,7 +8,7 @@
 // barrier used to ensure all threads start at the same time
 pthread_barrier_t barr;
 
-void rng_f(unsigned long long *num, rng_params_t *rng_params) {
+void rng_f(uint64_t *num, rng_params_t *rng_params) {
     *num ^= (*num << 11);
     *num ^= (*num >> 8);
     *num ^= rng_params->b ^ (rng_params->b >> 19) + (rng_params->a >> 26);
@@ -32,9 +32,9 @@ void *loop_f(void *a) {
     return NULL;
 }
 
-unsigned long long rng_config(rng_config_t *config) {
+uint64_t rng_config(rng_config_t *config) {
     const int num_threads = config->num_threads;
-    unsigned long long random = config->init_random;
+    uint64_t random = config->init_random;
 
     pthread_t threads[num_threads];
 
@@ -67,7 +67,7 @@ unsigned long long rng_config(rng_config_t *config) {
     return random;
 }
 
-unsigned long long rng() {
+uint64_t rng() {
     // make sure this has conf.num_threads number of elements
     rng_params_t rng_params[] = {
         { .a = 1959145553,          .b = 6983543408444742683    },

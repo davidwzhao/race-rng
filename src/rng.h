@@ -1,18 +1,20 @@
 #ifndef RNG_H
 #define RNG_H
 
+#include <stdint.h>
+
 /* ----- struct definitions ----- */
 
 /* Parameters for an rng function */
 typedef struct rng_params_t_ {
-    unsigned long long a;
-    unsigned long long b;
+    uint64_t a;
+    uint64_t b;
 } rng_params_t;
 
 /* Arguments passed into the loop rng function */
 typedef struct loop_f_args_t_ {
     // a pointer to the random number
-    unsigned long long *num;
+    uint64_t *num;
 
     // the parameters for the function
     rng_params_t *rng_params;
@@ -21,7 +23,7 @@ typedef struct loop_f_args_t_ {
     int num_loops;
 
     // the rng function to call - paramters match rng_f
-    void (*fn) (unsigned long long *, rng_params_t *rng_params);
+    void (*fn) (uint64_t *, rng_params_t *rng_params);
 } loop_f_args_t;
 
 /* Configuration for the rng */
@@ -33,7 +35,7 @@ typedef struct rng_config_t_ {
     int num_loops;
 
     // starting random number
-    unsigned long long init_random;
+    uint64_t init_random;
 
     // array of rng parameters, should be 1 per thread
     rng_params_t *rng_params;
@@ -52,7 +54,7 @@ typedef struct rng_config_t_ {
  * @param num a pointer to the random number to be modified
  * @param rng_params the parameters to use for this PRNG
  */
-void rng_f(unsigned long long *num, rng_params_t *rng_params);
+void rng_f(uint64_t *num, rng_params_t *rng_params);
 
 /* 
  * Loops the rng function
@@ -67,7 +69,7 @@ void *loop_f(void *args);
  * @return the random number
  * @param config the configuration for this rng
  */
-unsigned long long rng_config(rng_config_t *config);
+uint64_t rng_config(rng_config_t *config);
 
 /*
  * The main rng function - call this to make a new random number!
@@ -75,6 +77,6 @@ unsigned long long rng_config(rng_config_t *config);
  *
  * @return the random number
  */
-unsigned long long rng();
+uint64_t rng();
 
 #endif /* RNG_H */
